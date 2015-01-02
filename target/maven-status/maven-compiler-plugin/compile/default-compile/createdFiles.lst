@@ -1,2 +1,7 @@
-s32a\jbox\MainApp.class
+s32a\jbox\MainApp$2.class
 s32a\jbox\FXMLController.class
+s32a\calc\Puck.class
+s32a\calc\PhysEngine.class
+s32a\jbox\MainApp.class
+s32a\calc\Game.class
+s32a\jbox\MainApp$1.class
