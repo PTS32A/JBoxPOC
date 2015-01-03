@@ -5,6 +5,7 @@
  */
 package s32a.calc;
 
+import java.util.Timer;
 import javafx.scene.Node;
 
 /**
@@ -14,10 +15,16 @@ import javafx.scene.Node;
 public class Game {
     
     public Puck puck;
+    private Timer puckTimer;
+    public boolean allowRun;
+    private int roundNo;
     
     public Game()
     {
-        puck = new Puck();
+        puck = new Puck(this);
+        puckTimer = new Timer();
+        allowRun = false;
+        roundNo = 0;
     }
     
     public Node getPuck()
@@ -25,8 +32,20 @@ public class Game {
         return puck.getVisualPuck();
     }
     
-    public void run()
+    public void beginGame()
     {
-        puck.run();
+        puckTimer.scheduleAtFixedRate(puck, 0, 20);
+        startRound();
+    }
+        
+    public void startRound()
+    {
+        roundNo++;
+        allowRun = true;
+    }
+    
+    public void endRound()
+    {
+        allowRun = false;
     }
 }

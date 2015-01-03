@@ -57,7 +57,9 @@ public class MainApp extends Application {
         btn.setText("Start");
         btn.setOnAction(new EventHandler<ActionEvent>() {
             public void handle(ActionEvent event) {
-                        timeline.playFromStart(); 
+                        //timeline.playFromStart(); 
+                        
+                        game.beginGame();
                         btn.setVisible(false);
             }
         });

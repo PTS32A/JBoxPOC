@@ -5,10 +5,12 @@
  */
 package s32a.calc;
 
+import java.util.TimerTask;
 import javafx.scene.Node;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 import org.jbox2d.collision.shapes.CircleShape;
+import org.jbox2d.common.Vec2;
 import org.jbox2d.dynamics.Body;
 import org.jbox2d.dynamics.BodyDef;
 import org.jbox2d.dynamics.BodyType;
@@ -20,18 +22,21 @@ import static s32a.calc.PhysEngine.toPixelPosY;
  *
  * @author Juliusername
  */
-public class Puck {
+public class Puck extends TimerTask {
     
+    private Game myGame;
     public PhysEngine physEngine;
     
     private Circle puck;
+    Body body;
     
     private float startX;
     private float startY;
     private float radius;
     
-    public Puck()
-    {
+    public Puck(Game myGame)
+    {       
+        this.myGame = myGame;
         physEngine = new PhysEngine();
         
         puck = new Circle();
@@ -63,14 +68,14 @@ public class Puck {
         FixtureDef fd = new FixtureDef();
         fd.shape = cs;
         fd.density = 0.9f;
-        fd.friction = 0.3f;        
-        fd.restitution = 0.6f;
+        //fd.friction = 0.3f;        
+        //fd.restitution = 0.6f;
  
         /**
         * Virtual invisible JBox2D body of ball. Bodies have velocity and position. 
         * Forces, torques, and impulses can be applied to these bodies.
         */
-          Body body = physEngine.world.createBody(bd);
+          body = physEngine.world.createBody(bd);
           body.createFixture(fd);
           puck.setUserData(body);
     }
@@ -80,8 +85,13 @@ public class Puck {
         return this.puck;
     }
     
+    @Override
     public void run()
     {
-        
+        if (myGame.allowRun)
+        {
+            //body.applyLinearImpulse(new Vec2(50, 0), new Vec2(50, 50));
+            body.setTransform(new Vec2(50, 50), 0);
+        }
     }
 }
